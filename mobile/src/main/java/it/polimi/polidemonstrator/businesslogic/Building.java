@@ -2,6 +2,7 @@ package it.polimi.polidemonstrator.businesslogic;
 
 import android.content.Context;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +84,7 @@ public class Building {
             bufferedReader.close();
             inputStream.close();
             httpconnection.disconnect();
+            Log.d(this.getClass().getSimpleName(), stringBuilder.toString().trim());
             return stringBuilder.toString().trim();
 
         } catch (MalformedURLException e) {

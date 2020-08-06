@@ -32,7 +32,7 @@ public class ServerURL {
         try {
            String results= new BackgroundTaskGetAPIServer().execute(webServerURL).get();
             if (results != null) {
-                fullAPIUrl=ParsServerURL(results);
+                fullAPIUrl="http://192.168.1.114:8080";//ParsServerURL(results);
             }
             else {
                 Toast.makeText(context,

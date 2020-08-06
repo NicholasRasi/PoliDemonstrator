@@ -2,6 +2,7 @@ package it.polimi.polidemonstrator.businesslogic;
 
 import android.content.Context;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,7 +132,9 @@ public class Room {
 
 
     public String getRoomMeasurementlist(String roomid){
-        String json_url=serverURL+"/variables/room/"+roomid+"/list";
+        Log.d(this.getClass().getSimpleName(), "Running getRoomMeasurementlist");
+
+        String json_url=serverURL+"/sensors/room/all/"+roomid;
         String JSON_STRING;
         try {
             URL url=new URL(json_url);
@@ -148,6 +151,7 @@ public class Room {
             bufferedReader.close();
             inputStream.close();
             httpconnection.disconnect();
+            Log.d(this.getClass().getSimpleName(), stringBuilder.toString().trim());
             return stringBuilder.toString().trim();
 
         } catch (MalformedURLException e) {
@@ -164,6 +168,8 @@ public class Room {
 
 
     public List<MeasurementClass> parsRoomSensorClassesJSON(String json_results, int[] unwantedMeasurementIdentifiers) {
+        Log.d(this.getClass().getSimpleName(), "Running parsRoomSensorClassesJSON");
+
         try {
              List<MeasurementClass> listMeasurementClasses=new ArrayList<>();
             JSONArray jsonArray=new JSONArray(json_results);
@@ -172,10 +178,10 @@ public class Room {
             {
                 MeasurementClass measurementItem=new MeasurementClass();
                 JSONObject jsonObject=jsonArray.getJSONObject(count);
-                measurementItem.setSensorClasseId(jsonObject.getString("identifier"));
-                measurementItem.setSensorClassLabel(jsonObject.getString("name"));
+                measurementItem.setSensorClasseId(jsonObject.getString("sensorid"));
+                measurementItem.setSensorClassLabel(jsonObject.getString("identifier"));
 
-               if(MeasurementClass.iswantedMeasurementsIdentifier(jsonObject.getString("identifier"),unwantedMeasurementIdentifiers)){
+               if(MeasurementClass.iswantedMeasurementsIdentifier(jsonObject.getString("sensorid"),unwantedMeasurementIdentifiers)){
                    listMeasurementClasses.add(measurementItem);
                }
                 count++;

@@ -177,6 +177,7 @@ public class RoomSelector extends Activity {
                 listMeasurementClassesParesed=measurementClass.getMeasurementlatestValues(listMeasurementClassesParesed,room.getRoomid(),isRefresh);
             }
             return listMeasurementClassesParesed;
+            //return new ArrayList<MeasurementClass>();
         }
         @Override
         protected void onPostExecute(List<MeasurementClass> listMeasurementClassesParesed) {
