@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -616,6 +617,7 @@ public class MeasurementClass implements Serializable {
 
         for(MeasurementClass meaurementClassItem : resultsParsed){
             //json Query for each measurement class
+            Log.d("MeasurementClass", "Calling getMeasurementLatestValue");
             String measurementLatestValue=getMeasurementLatestValue(roomid,meaurementClassItem.getSensorClasseId(),isRefresh);
             meaurementClassItem.setSensorClassSensorLatestValue(measurementLatestValue);
 
@@ -629,6 +631,8 @@ public class MeasurementClass implements Serializable {
         String[] startEndHours= DateTimeObj.getTimeRangeForTwoHours();
         String measurementClassVariablesURL=serverURL+"/measurements/60min/room/"+roomid+"/variableclass/"+measurementClassKey+"/"+
                 DateTimeObj.getCurrentDate()+"?from="+startEndHours[0]+":00&to="+startEndHours[1]+":00";
+
+        Log.d("MeasurementClass", "calling: " + measurementClassVariablesURL);
         try {
             URL url = new URL(measurementClassVariablesURL);
             HttpURLConnection httpconnection=(HttpURLConnection)url.openConnection();
@@ -652,6 +656,7 @@ public class MeasurementClass implements Serializable {
             httpconnection.disconnect();
 
             String json_String=stringBuilder.toString().trim();
+            Log.d("MeasurementClass", "response: " + json_String);
             LinkedHashMap<Long,Float> measurementData=parsJSON_Measurement(json_String);
 
             List<Map.Entry<Long,Float>> entryList = new ArrayList<>(measurementData.entrySet());
@@ -795,6 +800,7 @@ public class MeasurementClass implements Serializable {
 
 
     public static LinkedHashMap<Long,Float> parsJSON_Measurement(String json_results) {
+        Log.d("MeasurmentClass", "parsJSON_Measurement: parsing " + json_results);
         try {
             JSONArray jsonArray=new JSONArray(json_results);
             int count=0;

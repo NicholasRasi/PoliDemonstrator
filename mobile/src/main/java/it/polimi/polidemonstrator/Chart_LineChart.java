@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -179,6 +180,8 @@ public class Chart_LineChart extends AppCompatActivity
         ArrayList<Entry> arrayChartEntries=new ArrayList<Entry>();
         //clean array lists first of old data
         arrayTimeStamp.clear();
+        Log.d("Chart", "arrayListXAxisValues: " + arrayListXAxisValues);
+        Log.d("Chart", "hashMapParsedResults: " + hashMapParsedResults);
 
         for(int count=0;count<arrayListXAxisValues.size();count++) {
 
@@ -345,6 +348,7 @@ public class Chart_LineChart extends AppCompatActivity
             if(hashMapJson_results !=null){
                 for (Map.Entry<String,List<String>> entry : hashMapJson_results.entrySet()) {//key is the label name of the line
                     LinkedHashMap<Long, Float> hashMapParsedResults = MeasurementClass.parsJSON_Measurement(entry.getValue().get(0));//get(0)is one record of un-parsed json
+                    Log.d("Chart", "adding records to chart, size: " + hashMapParsedResults.size());
                     ArrayList<Entry> arrayListYvalues=addRecordsToChartData(hashMapParsedResults, arrayListXAxisValuesInMili, timeWindow);
                     LineDataSet lineInternalDataset=FillChartArrayListDataSets(arrayListYvalues, entry.getKey(), Integer.valueOf(entry.getValue().get(1)));
                     datasets.add(lineInternalDataset);

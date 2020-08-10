@@ -132,7 +132,7 @@ public class Room {
 
 
     public String getRoomMeasurementlist(String roomid){
-        Log.d(this.getClass().getSimpleName(), "Running getRoomMeasurementlist");
+        Log.d("Room", "Running getRoomMeasurementlist");
 
         String json_url=serverURL+"/sensors/room/all/"+roomid;
         String JSON_STRING;
@@ -151,7 +151,7 @@ public class Room {
             bufferedReader.close();
             inputStream.close();
             httpconnection.disconnect();
-            Log.d(this.getClass().getSimpleName(), stringBuilder.toString().trim());
+            Log.d("Room", stringBuilder.toString().trim());
             return stringBuilder.toString().trim();
 
         } catch (MalformedURLException e) {
@@ -168,7 +168,7 @@ public class Room {
 
 
     public List<MeasurementClass> parsRoomSensorClassesJSON(String json_results, int[] unwantedMeasurementIdentifiers) {
-        Log.d(this.getClass().getSimpleName(), "Running parsRoomSensorClassesJSON");
+        Log.d("Room", "Running parsRoomSensorClassesJSON");
 
         try {
              List<MeasurementClass> listMeasurementClasses=new ArrayList<>();

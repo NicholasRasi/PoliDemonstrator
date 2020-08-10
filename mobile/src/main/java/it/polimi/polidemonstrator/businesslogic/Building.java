@@ -84,7 +84,7 @@ public class Building {
             bufferedReader.close();
             inputStream.close();
             httpconnection.disconnect();
-            Log.d(this.getClass().getSimpleName(), stringBuilder.toString().trim());
+            Log.d("Building", stringBuilder.toString().trim());
             return stringBuilder.toString().trim();
 
         } catch (MalformedURLException e) {

@@ -7,6 +7,7 @@ import android.net.http.HttpResponseCache;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -169,8 +170,9 @@ public class RoomSelector extends Activity {
 
         @Override
         protected List<MeasurementClass> doInBackground(String... params) {
-
+            Log.d("RoomSelector", "calling: getRoomMeasurementlist");
             String roomMeasurementClasslistJSON = room.getRoomMeasurementlist(room.getRoomid());
+            Log.d("RoomSelector", "roomMeasurementClasslistJSON: "  + roomMeasurementClasslistJSON);
             if (roomMeasurementClasslistJSON != null){
                 int[] UnwantedMeasurementIdentifiers = getResources().getIntArray(R.array.UnwantedMeasurementIdentifiers);
                 listMeasurementClassesParesed = room.parsRoomSensorClassesJSON(roomMeasurementClasslistJSON,UnwantedMeasurementIdentifiers);
@@ -333,7 +335,7 @@ public class RoomSelector extends Activity {
             //fetch the list of beacons from internet and send it back to wearble
             EstimoteBeacon estimoteBeacon=new EstimoteBeacon(context);
             //call async task to fetch beacon lists and send it to wear
-            estimoteBeacon.new BackgroundTaskGetRoomCorrelatedBeacons(room.getRoomid(),false,context).execute();
+            // estimoteBeacon.new BackgroundTaskGetRoomCorrelatedBeacons(room.getRoomid(),false,context).execute();
 
             //save the current Building and Room Selection into preferences
 

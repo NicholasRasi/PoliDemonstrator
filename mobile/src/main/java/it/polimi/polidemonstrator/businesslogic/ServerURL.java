@@ -28,11 +28,12 @@ public class ServerURL {
     public String getServerURL(Context context){
         String fullAPIUrl=null;
         //run a background task to get the API server url form the json file which is uploaded into web server
+        /*
         String webServerURL= context.getString(R.string.server_url);
         try {
            String results= new BackgroundTaskGetAPIServer().execute(webServerURL).get();
             if (results != null) {
-                fullAPIUrl="http://192.168.1.114:8080";//ParsServerURL(results);
+                fullAPIUrl=ParsServerURL(results);
             }
             else {
                 Toast.makeText(context,
@@ -45,8 +46,8 @@ public class ServerURL {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }
-        return fullAPIUrl;
+        }*/
+        return "http://192.168.1.114:8080";//fullAPIUrl;
 
     }
 
